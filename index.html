@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pop Up CSV Generator (Client-side)</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="card">
+      <h1>Pop Up CSV Generator</h1>
+      <p class="muted">
+        DATA BASE → MASTER POP UP → CSV → KMZ<br/>
+        Semua proses terjadi di browser (tanpa server).
+      </p>
+    </header>
+
+    <!-- ========================================================= -->
+    <!-- DATA BASE → MASTER POP UP (BARU) -->
+    <!-- ========================================================= -->
+    <section class="card">
+      <h2>Generate MASTER POP UP (Dari DATA BASE)</h2>
+      <p class="muted">
+        Upload <b>Excel DATA BASE</b> → download <b>MASTER POP UP.xlsx</b><br/>
+        Format & isi <b>IDENTIK</b> dengan Master Pop Up standar desain.
+      </p>
+
+      <div class="grid">
+        <div>
+          <label class="label">A) Pilih Excel DATA BASE (.xlsx)</label>
+          <input id="dbFile" type="file" accept=".xlsx,.xls" />
+          <div class="hint">1 sheet (FolderPath, Name, X, Y)</div>
+        </div>
+
+        <div>
+          <label class="label">B) Nama Area / Cluster</label>
+          <input id="dbArea" type="text" placeholder="BABAT JERAWAT" />
+        </div>
+
+        <div>
+          <label class="label">C) District</label>
+          <input id="dbDistrict" type="text" placeholder="PAKAL" />
+        </div>
+
+        <div>
+          <label class="label">D) Sub District</label>
+          <input id="dbSubDistrict" type="text" placeholder="BABAT JERAWAT" />
+        </div>
+
+        <div>
+          <label class="label">E) Post Code</label>
+          <input id="dbPostCode" type="text" placeholder="60197" />
+        </div>
+
+        <div>
+          <label class="label">F) FDT Code</label>
+          <input id="dbFdtCode" type="text" placeholder="FBS05300" />
+        </div>
+
+        <div>
+          <label class="label">G) ID Area</label>
+          <input id="dbIdArea" type="text" placeholder="LN35SBY0042AS-01" />
+        </div>
+
+        <div>
+          <label class="label">H) Generate</label>
+          <button id="btnGenMaster" class="btn">Generate MASTER POP UP</button>
+          <div id="statusMaster" class="hint"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- CSV GENERATOR (LAMA - TIDAK DIUBAH) -->
+    <!-- ========================================================= -->
+    <section class="card">
+      <div class="grid">
+        <div>
+          <label class="label">1) Pilih file Excel Master Pop Up (.xlsx)</label>
+          <input id="file" type="file" accept=".xlsx,.xls" />
+          <div class="hint">
+            Sheet: <b>Master Data</b> (atau sheet pertama).
+          </div>
+        </div>
+
+        <div>
+          <label class="label">2) Nama folder area (opsional)</label>
+          <input id="areaName" type="text" placeholder="Contoh: BABAT JERAWAT" />
+          <div class="hint">
+            Jika kosong → pakai <b>ID_Area</b> / nama file.
+          </div>
+        </div>
+
+        <div>
+          <label class="label">3) Generate CSV</label>
+          <button id="btn" class="btn" disabled>Generate ZIP</button>
+          <div id="status" class="hint"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PREVIEW ===================== -->
+    <section class="card">
+      <h2>Preview</h2>
+      <div class="preview">
+        <div class="kv"><span>HOME</span><b id="cHome">-</b></div>
+        <div class="kv"><span>HOME-BIZ</span><b id="cHomeBiz">-</b></div>
+        <div class="kv"><span>FDT</span><b id="cFdt">-</b></div>
+        <div class="kv"><span>FAT</span><b id="cFat">-</b></div>
+        <div class="kv"><span>POLE</span><b id="cPole">-</b></div>
+      </div>
+    </section>
+
+    <!-- ===================== PATCH KMZ ===================== -->
+    <section class="card">
+      <h2>Patch KMZ Desain (Isi Pop-Up Otomatis)</h2>
+      <p class="muted">
+        Upload <b>KMZ desain</b> + <b>ZIP CSV</b> →
+        download <b>KMZ baru</b> (popup terisi).
+        <br />
+        <b>Layer, folder, style TIDAK DIUBAH.</b>
+      </p>
+
+      <div class="grid">
+        <div>
+          <label class="label">4) Pilih KMZ Desain (.kmz)</label>
+          <input id="kmzFile" type="file" accept=".kmz" />
+        </div>
+
+        <div>
+          <label class="label">5) Pilih ZIP CSV (hasil generator)</label>
+          <input id="csvZip" type="file" accept=".zip" />
+        </div>
+
+        <div>
+          <label class="label">6) Patch KMZ</label>
+          <button id="btnPatchKmz" class="btn" disabled>
+            Generate KMZ Pop-Up
+          </button>
+          <div id="statusKmz" class="hint"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="muted small">
+      Workflow resmi desain:
+      DATA BASE → MASTER POP UP → CSV → KMZ
+      <br />
+      100% client-side.
+    </footer>
+
+  </div>
+
+  <!-- ===================== LIBRARIES ===================== -->
+  <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+  <!-- APP -->
+  <script src="./app.js"></script>
+</body>
+</html>
